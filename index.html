@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sản phẩm</title>
+</head>
+<body>
+<h1>Quản lý sản phẩm</h1>
+<hr>
+<input type="text" id="txtValue"/>
+<input type="button" id="btnAdd" value="Thêm Sản phẩm" onclick="addProduct();"/><br>
+<hr align="center" width="80%">
+<div id="result"></div>
+<script>
+    var arr = [];
+
+    function addProduct() {
+        var add = document.getElementById("txtValue").value;
+        //  alert("add thành công!");
+        arr.push(add);
+        displayProduct()
+    }
+
+    function displayProduct() {
+        let creTable;
+        creTable = "<h1 align='center'>";
+        creTable += "Danh sách sản phẩm";
+        creTable += "</h1>";
+        creTable += "<table border='1' style='border-collapse: collapse' align='center'>";
+        creTable = creTable + "<tr>" + "<td>" + "Số thứ tự" + "</td>"
+            + "<td>" + "Sản phẩm" + "</td>"
+            + "<td colspan='2'>" + "Số lượng SP: " + arr.length + "</td>"
+            + "</tr>";
+        for (var i = 0; i < arr.length; i++) {
+            creTable = creTable + "<tr>";
+            creTable = creTable + "<td>" + (i+1) + "</td>";
+            creTable = creTable + "<td>" + arr[i] + "</td>";
+            creTable = creTable + "<td>" + "<button id='" + i + "' onclick='deleteProduct(this.id)'>Xóa</button>" + "</td>";
+            creTable = creTable + "<td>" + "<button id='" + i + "' onclick='editProduct(this.id)'>Sửa</button>" + "</td>";
+            creTable = creTable + "</tr>";
+        }
+        creTable = creTable + "</table>";
+
+        document.getElementById("result").innerHTML = creTable;
+    }
+
+    function deleteProduct(id) {
+        arr.pop(id);
+        displayProduct()
+    }
+
+    function editProduct(id) {
+        var editP = prompt("Nhập tên muốn đổi: ");
+        for (var k = 0; k < arr.length; k++) {
+            if (id == k) {
+                arr.splice(k, 1, editP);
+            }
+        }
+        displayProduct()
+    }
+</script>
+</body>
+</html>
